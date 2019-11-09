@@ -50,12 +50,21 @@ $(document).ready(function() {
                 var url = '{{ hoverxref_tooltip_api_host }}' + '/api/v2/embed/?' + 'project=' + project + '&version=' + version + '&doc=' + doc + '&section=' + section;
                 $.get(url, function(data) {
 
-                    // call the 'content' method to update the content of our tooltip with the returned data.
-                    // note: this content update will trigger an update animation (see the updateAnimation option)
-                    instance.content(data['content']);
-
-                    // to remember that the data has been loaded
-                    $origin.data('loaded', true);
+                    if (doc !== section) {
+                        // call the 'content' method to update the content of our tooltip with the returned data.
+                        // note: this content update will trigger an update animation (see the updateAnimation option)
+                        instance.content(data['content']);
+                        // to remember that the data has been loaded
+                        $origin.data('loaded', true);
+                    } else {
+                        var firstSection = Object.keys(data['headers'][0])[0]
+                        var firstSectionUrl = '{{ hoverxref_tooltip_api_host }}' + '/api/v2/embed/?' + 'project=' + project + '&version=' + version + '&doc=' + doc + '&section=' + encodeUri(firstSection)
+                        $.get(url, function(data){
+                            instance.content(data['content']);
+                            // to remember that the data has been loaded
+                            $origin.data('loaded', true);
+                        })
+                    }
                 });
             }
         },
