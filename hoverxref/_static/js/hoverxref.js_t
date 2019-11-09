@@ -58,8 +58,8 @@ $(document).ready(function() {
                         $origin.data('loaded', true);
                     } else {
                         var firstSection = Object.keys(data['headers'][0])[0]
-                        var firstSectionUrl = '{{ hoverxref_tooltip_api_host }}' + '/api/v2/embed/?' + 'project=' + project + '&version=' + version + '&doc=' + doc + '&section=' + encodeUri(firstSection)
-                        $.get(url, function(data){
+                        var firstSectionUrl = '{{ hoverxref_tooltip_api_host }}' + '/api/v2/embed/?' + 'project=' + project + '&version=' + version + '&doc=' + doc + '&section=' + firstSection;
+                        $.get(firstSectionUrl, function(data){
                             instance.content(data['content']);
                             // to remember that the data has been loaded
                             $origin.data('loaded', true);
