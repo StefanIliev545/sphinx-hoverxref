@@ -3,10 +3,14 @@ import inspect
 from docutils import nodes
 from sphinx.roles import XRefRole
 from sphinx.util.fileutil import copy_asset
+from sphinx.util import logging
 
 from . import version
 from .domains import HoverXRefPythonDomain, HoverXRefStandardDomain
 from .translators import HoverXRefHTMLTranslator
+
+logger = logging.getLogger(__name__)
+
 
 ASSETS_FILES = [
     'js/hoverxref.js_t',  # ``_t`` tells Sphinx this is a template
@@ -46,6 +50,7 @@ def copy_asset_files(app, exception):
 
         for f in ASSETS_FILES:
             path = os.path.join(os.path.dirname(__file__), '_static', f)
+            logger.info("Copying file to assets: %s", f)
             copy_asset(
                 path,
                 os.path.join(app.outdir, '_static', f.split('.')[-1].replace('js_t', 'js')),
@@ -123,8 +128,10 @@ def setup(app):
 
     for f in ASSETS_FILES:
         if f.endswith('.js') or f.endswith('.js_t'):
+            logger.info("Adding js file: %s", f)
             app.add_js_file(f.replace('.js_t', '.js'))
         if f.endswith('.css'):
+            logger.info("Adding css file: %s", f)
             app.add_css_file(f)
 
     return {
