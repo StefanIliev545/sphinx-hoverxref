@@ -11,6 +11,8 @@
     color: #8d8d8d;
     font-size: 80%;
     padding: 18px;
+    max-width: 450px;
+    overflow-x: scroll;
 }
 
 .tooltipster-sidetip.tooltipster-shadow.tooltipster-shadow-custom .tooltipster-content p {
@@ -19,5 +21,4 @@
 
 .tooltipster-sidetip.tooltipster-shadow.tooltipster-shadow-custom .tooltipster-content .headerlink {
     visibility: hidden;
-    overflow-x: scroll;
 }
