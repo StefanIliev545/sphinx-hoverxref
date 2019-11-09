@@ -11,6 +11,7 @@ from .translators import HoverXRefHTMLTranslator
 ASSETS_FILES = [
     'js/hoverxref.js_t',  # ``_t`` tells Sphinx this is a template
     'js/tooltipster.bundle.min.js',
+    'js/tooltipster-scrollableTip.min.js'
     'css/tooltipster.custom.css',
     'css/tooltipster.bundle.min.css',
 

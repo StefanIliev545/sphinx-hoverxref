@@ -2,6 +2,7 @@ prune common
 include LICENSE
 include hoverxref/_static/js/hoverxref.js_t
 include hoverxref/_static/js/tooltipster.bundle.min.js
+incllude hoverxref/_static/js/tooltipster-scrolllableTip.min.js
 include hoverxref/_static/css/tooltipster.bundle.min.css
 include hoverxref/_static/css/tooltipster-sideTip-shadow.min.css
 include hoverxref/_static/css/tooltipster.custom.css
