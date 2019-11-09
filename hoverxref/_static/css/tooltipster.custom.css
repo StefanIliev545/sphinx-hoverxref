@@ -12,7 +12,7 @@
     font-size: 80%;
     padding: 18px;
     max-width: 450px;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .tooltipster-sidetip.tooltipster-shadow.tooltipster-shadow-custom .tooltipster-content p {
