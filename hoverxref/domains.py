@@ -96,7 +96,7 @@ class HoverXRefStandardDomain(HoverXRefBaseDomain, StandardDomain):
         self._warnIfNotConfigured(env, typ)
 
         if self._is_hoverxref_configured(env) and (env.config.hoverxref_auto_doc or typ == 'hoverxdoc'):
-           refdoc = node.get('refdoc', fromdocname)
+            refdoc = node.get('refdoc', fromdocname)
             docname = docname_join(refdoc, node['reftarget'])
             self._inject_hoverxref_data(env, refnode, docname, None)
             logger.info(
