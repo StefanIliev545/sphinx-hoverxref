@@ -89,7 +89,7 @@ class HoverXRefStandardDomain(HoverXRefBaseDomain, StandardDomain):
         return refnode
 
     def _resolve_doc_xref(self, env, fromdocname, builder, typ, target, node, contnode):
-        refnode = super()._resolve_ref_xref(env, fromdocname, builder, typ, target, node, contnode)
+        refnode = super()._resolve_doc_xref(env, fromdocname, builder, typ, target, node, contnode)
         if refnode is None:
             return
 
