@@ -1,7 +1,7 @@
 from sphinx.domains.python import PythonDomain
 from sphinx.domains.std import StandardDomain
 from sphinx.util import logging
-from .utils import get_ref_xref_data, get_ref_obj_data
+from .utils import get_ref_xref_data, get_ref_obj_data, docname_join
 
 logger = logging.getLogger(__name__)
 
@@ -96,6 +96,7 @@ class HoverXRefStandardDomain(HoverXRefBaseDomain, StandardDomain):
         self._warnIfNotConfigured(env, typ)
 
         if self._is_hoverxref_configured(env) and (env.config.hoverxref_auto_doc or typ == 'hoverxdoc'):
+           refdoc = node.get('refdoc', fromdocname)
             docname = docname_join(refdoc, node['reftarget'])
             self._inject_hoverxref_data(env, refnode, docname, None)
             logger.info(

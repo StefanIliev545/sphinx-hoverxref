@@ -1,4 +1,6 @@
 import sphinx
+import posixpath
+
 
 
 def get_ref_xref_data(domain, node, target):
@@ -52,3 +54,7 @@ def get_ref_obj_data(domain, node, typ, target):
                 docname, labelid = domain.objects[objtype, target]
                 break
     return docname, labelid
+
+def docname_join(basedocname: str, docname: str) -> str:
+    return posixpath.normpath(
+        posixpath.join('/' + basedocname, '..', docname))[1:]
