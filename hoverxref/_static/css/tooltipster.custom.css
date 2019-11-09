@@ -19,4 +19,5 @@
 
 .tooltipster-sidetip.tooltipster-shadow.tooltipster-shadow-custom .tooltipster-content .headerlink {
     visibility: hidden;
+    overflow-x: scroll;
 }
