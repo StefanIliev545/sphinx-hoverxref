@@ -76,10 +76,7 @@ class HoverXRefStandardDomain(HoverXRefBaseDomain, StandardDomain):
         if refnode is None:
             return
 
-        if not self._is_hoverxref_configured(env) and typ == 'hoverxref':
-            # Using ``:hoverxref:`` role without having hoverxref configured
-            # properly. Log a warning.
-            logger.warning('hoverxref role is not fully configured.')
+        self._warnIfNotConfigured(env, typ)
 
         if self._is_hoverxref_configured(env) and (env.config.hoverxref_auto_ref or typ == 'hoverxref'):
             docname, labelid, _ = get_ref_xref_data(self, node, target)
@@ -90,6 +87,29 @@ class HoverXRefStandardDomain(HoverXRefBaseDomain, StandardDomain):
                 refnode._hoverxref,
             )
         return refnode
+
+    def _resolve_doc_xref(self, env, fromdocname, builder, typ, target, node, contnode):
+        refnode = super()._resolve_ref_xref(env, fromdocname, builder, typ, target, node, contnode)
+        if refnode is None:
+            return
+
+        self._warnIfNotConfigured(env, typ)
+
+        if self._is_hoverxref_configured(env) and (env.config.hoverxref_auto_doc or typ == 'hoverxdoc'):
+            docname = docname_join(refdoc, node['reftarget'])
+            self._inject_hoverxref_data(env, refnode, docname, 0)
+            logger.info(
+                ":doc: _hoverxref injected: fromdocname=%s %s",
+                fromdocname,
+                refnode._hoverxref
+            )
+        return refnode
+    
+    def _warnIfNotConfigured(self, env, typ):
+        if not self._is_hoverxref_configured(env) and typ == 'hoverxref':
+            # Using ``:hoverxref:`` role without having hoverxref configured
+            # properly. Log a warning.
+            logger.warning('hoverxref role is not fully configured.')
 
     def _resolve_obj_xref(self, env, fromdocname, builder, typ, target, node, contnode):
         refnode = super()._resolve_obj_xref(env, fromdocname, builder, typ, target, node, contnode)
