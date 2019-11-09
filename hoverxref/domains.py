@@ -97,7 +97,7 @@ class HoverXRefStandardDomain(HoverXRefBaseDomain, StandardDomain):
 
         if self._is_hoverxref_configured(env) and (env.config.hoverxref_auto_doc or typ == 'hoverxdoc'):
             docname = docname_join(refdoc, node['reftarget'])
-            self._inject_hoverxref_data(env, refnode, docname, 0)
+            self._inject_hoverxref_data(env, refnode, docname, None)
             logger.info(
                 ":doc: _hoverxref injected: fromdocname=%s %s",
                 fromdocname,
