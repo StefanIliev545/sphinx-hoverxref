@@ -32,12 +32,16 @@ function fixHref(toReplace) {
   regexMatches.forEach(function (regexMatch) { 
     
     var href = regexMatch.match(/"(.*?)"/)[1]
-    var url = new URL(href)
+    try {
+        var url = new URL(href)
 
-    if (url.hostname === window.location.hostname && !url.pathname.endsWith(".html")) {
-      url.pathname = url.pathname + '.html'
-      toReplace = toReplace.replace(href, url.href)
+        if (url.hostname === window.location.hostname && !url.pathname.endsWith(".html")) {
+        url.pathname = url.pathname + '.html'
+        toReplace = toReplace.replace(href, url.href)
 
+        }
+    } catch(ex) {
+        //expecting bad hrefs
     }
   })  
   return toReplace
@@ -73,14 +77,14 @@ $(document).ready(function() {
                     if (doc !== section) {
                         // call the 'content' method to update the content of our tooltip with the returned data.
                         // note: this content update will trigger an update animation (see the updateAnimation option)
-                        instance.content(fixHref(data['content']));
+                        instance.content(data['content'].map(fixHref)));
                         // to remember that the data has been loaded
                         $origin.data('loaded', true);
                     } else {
                         var firstSection = Object.keys(data['headers'][0])[0]
                         var firstSectionUrl = '{{ hoverxref_tooltip_api_host }}' + '/api/v2/embed/?' + 'project=' + project + '&version=' + version + '&doc=' + doc + '&section=' + firstSection;
                         $.get(firstSectionUrl, function(data){
-                            instance.content(fixHref(data['content']));
+                            instance.content(data['content'].map(fixHref)));
                             // to remember that the data has been loaded
                             $origin.data('loaded', true);
                         })
